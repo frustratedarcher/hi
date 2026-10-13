@@ -7,192 +7,288 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
 :root{
-  --note:#7EDDA4; --ink:#18245C; --paper:#FFFFFF; --bug:#D7263D; --ok:#1F8A5B;
-  --page:var(--note); --text:var(--ink); --card:var(--paper); --line:#18245C; --muted:#4A5488; --field:#E4F8EC;
+  --page:#FFFFFF; --text:#12301F; --card:#F1FBF4; --line:#12301F; --muted:#3D5E4B;
+  --field:#E9FAEF; --sky:#D7F4FF; --accent:#FF6B4A; --leaf1:#2E9E5B; --leaf2:#46B96F; --leaf3:#1F7A45; --trunk:#7A4A2A;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){ --page:#0E2A1E; --text:#EEF7F0; --card:#17402E; --line:#7EDDA4; --muted:#B5D6C3; --field:#0A1F16; }
+  :root:not([data-theme="light"]){ --page:#0E2A1E; --text:#EEF7F0; --card:#17402E; --line:#7EDDA4; --muted:#B5D6C3; --field:#0A1F16; --sky:#0F2E3A; }
 }
-:root[data-theme="dark"]{ --page:#0E2A1E; --text:#EEF7F0; --card:#17402E; --line:#7EDDA4; --muted:#B5D6C3; --field:#0A1F16; }
+:root[data-theme="dark"]{ --page:#0E2A1E; --text:#EEF7F0; --card:#17402E; --line:#7EDDA4; --muted:#B5D6C3; --field:#0A1F16; --sky:#0F2E3A; }
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--page);color:var(--text);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.55}
-main{max-width:44rem;margin:0 auto;padding:1.5rem 1rem 4rem}
-h1,h2{font-family:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;font-weight:800;line-height:1;margin:0;letter-spacing:-.02em}
-h1{font-size:clamp(3.2rem,15vw,7rem)}
-h1 span{display:inline-block;transform-origin:70% 80%;animation:wave 1.1s ease-in-out 2 .3s}
+main{position:relative;z-index:1;max-width:44rem;margin:0 auto;padding:1.75rem 1rem 3rem}
+#crawl{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+#crawl .orbit{position:absolute;left:50%;top:50%;width:0;height:0;animation:orbit 36s linear infinite}
+#crawl .lb{position:absolute;left:0;top:0;width:4rem;height:auto;opacity:.92;filter:drop-shadow(2px 3px 2px rgba(0,0,0,.25));overflow:visible;transform:translate(-50%,-50%) translateX(min(36vw,36vh)) rotate(180deg)}
+#crawl .lb .body{transform-origin:50px 65px;animation:waddle .5s ease-in-out infinite alternate}
+#crawl .lb .leg{animation:step .5s ease-in-out infinite alternate}
+#crawl .lb .leg.b{animation-delay:-.5s}
+#crawl .lb .ant{animation:twitch 1.6s ease-in-out infinite}
+#crawl .lb .ant.r{animation-delay:-.8s}
+@keyframes waddle{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@keyframes step{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+@keyframes twitch{0%,100%{transform:rotate(0)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+h1,h2,.big{font-family:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1;margin:0}
 @keyframes wave{0%,100%{transform:rotate(0)}25%{transform:rotate(18deg)}60%{transform:rotate(-10deg)}}
-h2{font-size:1.75rem;margin-bottom:.5rem}
-.lede{font-size:1.25rem;max-width:34rem;margin:1rem 0 2rem}
-.ticket{background:var(--card);border:3px solid var(--line);border-radius:4px 18px 4px 18px;box-shadow:7px 7px 0 var(--line);padding:1.25rem;margin-bottom:2.5rem;transform:rotate(-.6deg)}
-.ticket-id{font-weight:700;color:var(--bug);margin:0 0 .75rem}
-dl{margin:0;display:grid;grid-template-columns:9rem 1fr;gap:.5rem 1rem}
-dt{font-weight:700;color:var(--muted)}
-dd{margin:0}
-ol{margin:0;padding-left:1.2rem}
-@media (max-width:30rem){dl{grid-template-columns:1fr;gap:.1rem}dd{margin-bottom:.6rem}}
-section{margin-bottom:2.5rem}
+.tag{font-size:1.3rem;margin:.6rem 0 1.75rem;max-width:32rem}
+h1{font-size:clamp(3.6rem,17vw,7.5rem)}
+h1 .wave{display:inline-block;transform-origin:70% 80%;animation:wave 1.1s ease-in-out 2 .3s}
+@keyframes wave{0%,100%{transform:rotate(0)}25%{transform:rotate(18deg)}60%{transform:rotate(-10deg)}}
+.tag{font-size:1.3rem;margin:.6rem 0 1.75rem;max-width:32rem}
+h2{font-size:1.9rem;margin-bottom:.5rem}
+section{margin-bottom:2.75rem}
+
+.bubble{position:relative;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:1.1rem 1.25rem;box-shadow:6px 6px 0 var(--line);margin-bottom:2.75rem}
+.bubble::after{content:"";position:absolute;left:2.2rem;bottom:-17px;width:26px;height:26px;background:var(--card);border-right:3px solid var(--line);border-bottom:3px solid var(--line);transform:rotate(45deg) skew(8deg,8deg)}
+.bubble p{margin:0 0 .6rem}.bubble p:last-child{margin:0}
+
+.rules{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+.rules li{background:var(--card);border:3px solid var(--line);border-radius:14px;padding:.8rem 1rem .8rem 3.4rem;position:relative}
+.rules li::before{content:attr(data-n);position:absolute;left:.85rem;top:.7rem;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:1rem}
+.rules b{display:block}
+.fine{font-size:.9rem;color:var(--muted);margin:.6rem 0 0}
+
 .hud{display:flex;gap:1.25rem;flex-wrap:wrap;font-weight:700;margin:.75rem 0}
-.hud b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.4rem}
-#arena{position:relative;height:20rem;background:var(--field);border:3px solid var(--line);border-radius:14px;overflow:hidden;touch-action:manipulation}
-#arena .msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;text-align:center;padding:1rem}
-#arena .msg p{margin:0;max-width:24rem}
-.verdict{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.5rem;line-height:1.15}
-.bug{position:absolute;width:3rem;height:3rem;margin:-1.5rem 0 0 -1.5rem;font-size:2rem;line-height:1;background:none;border:0;padding:0;cursor:pointer;transition:left var(--life) linear,top var(--life) linear}
-.bug.dead{pointer-events:none;transition:none}
-button.go,a.go{font:inherit;font-weight:700;background:var(--bug);color:#fff;border:3px solid var(--line);border-radius:999px;padding:.6rem 1.4rem;cursor:pointer;box-shadow:4px 4px 0 var(--line);text-decoration:none;display:inline-block}
-button.go:active,a.go:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}
+.hud b{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.45rem}
+#arena{position:relative;height:25rem;background:linear-gradient(var(--sky),var(--field) 75%);border:3px solid var(--line);border-radius:18px;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#tree{position:absolute;left:50%;bottom:-2px;width:12rem;transform:translateX(-50%);pointer-events:none}
+#tree.hit{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(-50%)}25%{transform:translateX(calc(-50% - 7px)) rotate(-2deg)}75%{transform:translateX(calc(-50% + 7px)) rotate(2deg)}}
+.leaf{transform-box:fill-box;transform-origin:center;transition:transform .9s ease-in,opacity .9s ease-in}
+.leaf.fallen{transform:translate(var(--dx),160px) rotate(220deg);opacity:0}
+#tree .face{transition:opacity .3s}
+.mail{position:absolute;width:3.2rem;height:3.2rem;margin:-1.6rem 0 0 -1.6rem;font-size:2.1rem;line-height:1;display:grid;place-items:center;background:none;border:0;padding:0;cursor:pointer;transition:left var(--life) linear,top var(--life) linear;z-index:2}
+.mail.ra{font-size:2.5rem}
+.mail.ra::after{content:"Reply All";position:absolute;top:-1.1rem;font:700 .7rem/1 "Atkinson Hyperlegible",system-ui,sans-serif;background:var(--accent);color:#fff;padding:.15rem .35rem;border-radius:6px;white-space:nowrap}
+.mail.ra.hurt::after{content:"1 more!"}
+.pop{position:absolute;margin:-1rem 0 0 -1rem;font-size:1.8rem;pointer-events:none;animation:pop .6s ease-out forwards;z-index:3}
+@keyframes pop{to{transform:translateY(-40px) scale(1.3);opacity:0}}
+#msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.8rem;text-align:center;padding:1.4rem 1rem;z-index:4}
+#msg .card{background:var(--card);border:3px solid var(--line);border-radius:16px;padding:1rem 1.1rem;max-width:26rem;box-shadow:5px 5px 0 var(--line)}
+#msg p{margin:0}
+.verdict{font-size:1.45rem;line-height:1.15;margin-bottom:.4rem!important}
+button.go{font:inherit;font-weight:700;background:var(--accent);color:#fff;border:3px solid var(--line);border-radius:999px;padding:.6rem 1.5rem;cursor:pointer;box-shadow:4px 4px 0 var(--line)}
+button.go:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}
 :focus-visible{outline:3px solid var(--line);outline-offset:3px}
+
 #board{list-style:none;margin:0;padding:0;border-top:3px solid var(--line)}
 #board li{display:flex;align-items:center;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
 #board img{width:2rem;height:2rem;border-radius:50%}
 #board .who{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #board .when{color:var(--muted);font-size:.9rem}
-#board .pts{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.3rem}
+#board .pts{font-weight:700;white-space:nowrap}
 .quiet{color:var(--muted);margin:.5rem 0 0}
+footer{color:var(--muted);font-size:.9rem;text-align:center;padding-top:1rem;border-top:2px dashed var(--line)}
 [hidden]{display:none!important}
-@media (prefers-reduced-motion:reduce){h1 span{animation:none}.bug{transition:none}}
+@media (prefers-reduced-motion:reduce){#crawl{display:none}h1 .wave,#tree.hit{animation:none}.leaf{transition:opacity .3s}.leaf.fallen{transform:none}}
 </style>
 </head>
 <body>
+<div id="crawl" aria-hidden="true"><div class="orbit"><svg class="lb" viewBox="0 0 100 120"><g class="body"><g class="leg a" style="transform-origin:24px 52px"><path d="M24 52 Q16.0 40.0 8 40" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g class="leg b" style="transform-origin:21px 66px"><path d="M21 66 Q12.5 60.0 4 66" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g class="leg a" style="transform-origin:24px 80px"><path d="M24 80 Q16.5 81.0 9 94" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g class="leg b" style="transform-origin:76px 52px"><path d="M76 52 Q84.0 40.0 92 40" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g class="leg a" style="transform-origin:79px 66px"><path d="M79 66 Q87.5 60.0 96 66" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g class="leg b" style="transform-origin:76px 80px"><path d="M76 80 Q83.5 81.0 91 94" stroke="#1A1A1A" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g class="ant l" style="transform-origin:44px 26px"><path d="M44 26 Q40 14 34 9" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="34" cy="9" r="2.6" fill="#1A1A1A"/></g><g class="ant r" style="transform-origin:56px 26px"><path d="M56 26 Q60 14 66 9" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="66" cy="9" r="2.6" fill="#1A1A1A"/></g><ellipse cx="50" cy="31" rx="13" ry="10" fill="#1A1A1A"/><ellipse cx="50" cy="68" rx="30" ry="34" fill="#E0352B"/><path d="M50 40 L50 102" stroke="#1A1A1A" stroke-width="2.5"/><ellipse cx="50" cy="42" rx="21" ry="10" fill="#1A1A1A"/><circle cx="41" cy="41" r="3" fill="#FFF"/><circle cx="59" cy="41" r="3" fill="#FFF"/><circle cx="36" cy="60" r="6" fill="#1A1A1A"/><circle cx="64" cy="60" r="6" fill="#1A1A1A"/><circle cx="33" cy="80" r="5" fill="#1A1A1A"/><circle cx="67" cy="80" r="5" fill="#1A1A1A"/><circle cx="44" cy="93" r="4" fill="#1A1A1A"/><circle cx="56" cy="93" r="4" fill="#1A1A1A"/><ellipse cx="38" cy="52" rx="7" ry="4" fill="#FFF" opacity=".35" transform="rotate(-30 38 52)"/></g></svg></div></div>
 <main>
-  <h1>Hi <span aria-hidden="true">👋</span></h1>
-  <p class="lede">I'm from Museums QA. You clicked a link in Teams without checking where it goes, so I've logged a ticket.</p>
+  <h1>Hi <span class="wave" aria-hidden="true">👋</span></h1>
+  <p class="tag">You've reached the Museums QA corner of the internet. Mind the bugs, we've caught most of them.</p>
 
-  <div class="ticket">
-    <p class="ticket-id">QA-404, status: open</p>
-    <dl>
-      <dt>Summary</dt><dd>Colleague clicks unknown link during working hours</dd>
-      <dt>Reporter</dt><dd>Museums QA, who break things for a living so users don't have to</dd>
-      <dt>Severity</dt><dd>Low. Mildly embarrassing.</dd>
-      <dt>Steps to reproduce</dt><dd><ol><li>See a link in Teams</li><li>Feel curious</li><li>Click it anyway</li></ol></dd>
-      <dt>Expected result</dt><dd>Something about work</dd>
-      <dt>Actual result</dt><dd>This page</dd>
-      <dt>Resolution</dt><dd>Squash the bugs below and I'll close the ticket</dd>
-    </dl>
-  </div>
+  <section aria-labelledby="r">
+    <h2 id="r">House rules</h2>
+    <ul class="rules">
+      <li data-n="1"><b>Please don't email me. Message me on Teams.</b>A tree somewhere breathes a sigh of relief.*</li>
+      <li data-n="2"><b>"Quick question" is never quick.</b>Bring screenshots. Bring steps. Bring snacks.</li>
+      <li data-n="3"><b>"It works on my machine" is not a test result.</b>Your machine is not going live.</li>
+      <li data-n="4"><b>If it's urgent, say so.</b>If everything is urgent, nothing is.</li>
+    </ul>
+    <p class="fine">*Emails don't actually use paper. The tree is being dramatic. Play the game anyway.</p>
+  </section>
 
   <section aria-labelledby="g">
-    <h2 id="g">Squash the bugs</h2>
-    <p style="margin:0">You have 20 seconds. Any bug you miss ships to production.</p>
-    <div class="hud" aria-live="off">
-      <span>Squashed <b id="hit">0</b></span>
-      <span>In production <b id="miss">0</b></span>
-      <span>Time <b id="time">20</b>s</span>
+    <h2 id="g">Save the tree</h2>
+    <p style="margin:0">Emails are flying at our tree. Tap each one to turn it into a Teams message before it lands. Every email that hits costs a leaf. <b>Reply All</b> takes two taps and costs three leaves, as it should.</p>
+    <div class="hud">
+      <span>Leaves 🍃 <b id="leaves">12</b></span>
+      <span>Rescued 💬 <b id="conv">0</b></span>
+      <span>Time <b id="time">30</b>s</span>
     </div>
     <div id="arena">
-      <div class="msg" id="msg">
-        <p id="msgText">Tap or click each bug before it crawls away.</p>
-        <button class="go" id="start">Start squashing</button>
-        <a class="go" id="ping" target="_blank" rel="noopener" hidden>Tell me on Teams</a>
+      <svg id="tree" viewBox="0 0 200 220" aria-hidden="true">
+        <path d="M88 220 L92 140 Q78 128 66 118 L72 112 Q86 122 95 128 L97 96 L105 96 L106 130 Q118 118 132 110 L137 117 Q122 128 110 142 L114 220 Z" fill="var(--trunk)"/>
+        <g id="crown"></g>
+        <g class="face">
+          <circle cx="88" cy="92" r="4" fill="#12301F"/><circle cx="112" cy="92" r="4" fill="#12301F"/>
+          <path id="mouth" d="M88 104 Q100 114 112 104" stroke="#12301F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div id="msg">
+        <div class="card">
+          <p id="msgText">The tree is counting on you. No pressure.</p>
+        </div>
+        <button class="go" id="start">Save the tree</button>
       </div>
     </div>
     <p class="quiet" id="saveNote" role="status"></p>
   </section>
 
   <section aria-labelledby="b" id="boardSec">
-    <h2 id="b">Who else clicked</h2>
+    <h2 id="b">Tree huggers</h2>
     <ol id="board"></ol>
     <p class="quiet" id="boardNote">Loading the scoreboard…</p>
   </section>
+
+  <footer>Museums QA · Tested on more browsers than you have open tabs · No trees were harmed in the making of this page. One was mildly inconvenienced.</footer>
 </main>
 
 <script>
-// Fill in your work email to turn on the "Tell me on Teams" button.
-const TEAMS_EMAIL = "";
-
 const $ = id => document.getElementById(id);
-const arena = $("arena"), msg = $("msg");
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const BUGS = ["🐛","🪲","🐞","🕷️","🦟"];
-let hit = 0, miss = 0, left = 20, running = false, spawnT, tickT;
+const arena = $("arena"), msg = $("msg"), tree = $("tree");
+const TOTAL = 12, GAME = 30;
+let leaves = TOTAL, conv = 0, left = GAME, running = false, spawnT, tickT;
 let db = null, user = null, me = null, myDoc = null, saving = false;
 
-function verdict(n){
-  if (n >= 22) return "You're hired. Send me your CV.";
-  if (n >= 14) return "Sign-off granted. Ticket closed.";
-  if (n >= 7)  return "Passes UAT, with comments.";
-  return "Most of them shipped. Bold release strategy.";
+// Build the crown: 12 leaf clusters around the face.
+const spots = [[100,40],[70,52],[130,52],[48,78],[152,78],[62,108],[138,108],[100,22],[80,30],[120,30],[40,104],[160,104]];
+const fills = ["--leaf1","--leaf2","--leaf3"];
+const crown = $("crown");
+const bg = document.createElementNS("http://www.w3.org/2000/svg","ellipse");
+bg.setAttribute("cx",100);bg.setAttribute("cy",80);bg.setAttribute("rx",58);bg.setAttribute("ry",48);bg.setAttribute("fill","var(--leaf1)");bg.setAttribute("id","core");
+crown.appendChild(bg);
+spots.forEach(([x,y],i)=>{
+  const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+  c.setAttribute("cx",x);c.setAttribute("cy",y);c.setAttribute("r",26);
+  c.setAttribute("fill","var("+fills[i%3]+")");c.setAttribute("class","leaf");
+  c.style.setProperty("--dx",((i%2?1:-1)*(20+Math.random()*40))+"px");
+  crown.appendChild(c);
+});
+
+function setMood(){
+  const m = $("mouth");
+  if (leaves >= 9) m.setAttribute("d","M88 104 Q100 114 112 104");
+  else if (leaves >= 4) m.setAttribute("d","M88 107 L112 107");
+  else m.setAttribute("d","M88 110 Q100 100 112 110");
+  $("core").style.opacity = leaves === 0 ? .25 : 1;
+}
+
+function resetTree(){
+  crown.querySelectorAll(".leaf").forEach(l=>l.classList.remove("fallen"));
+  setMood();
+}
+
+function loseLeaves(n){
+  const alive = [...crown.querySelectorAll(".leaf:not(.fallen)")];
+  for (let i=0;i<n && alive.length;i++) alive.pop().classList.add("fallen");
+  leaves = Math.max(0, leaves - n);
+  $("leaves").textContent = leaves;
+  tree.classList.remove("hit"); void tree.getBoundingClientRect(); tree.classList.add("hit");
+  setMood();
+  if (leaves === 0) end();
+}
+
+function pop(x, y, emoji){
+  const p = document.createElement("span");
+  p.className = "pop"; p.textContent = emoji;
+  p.style.left = x; p.style.top = y;
+  arena.appendChild(p);
+  setTimeout(()=>p.remove(), 650);
 }
 
 function spawn(){
-  const life = Math.max(700, 1500 - (20 - left) * 35);
-  const b = document.createElement("button");
-  b.className = "bug"; b.type = "button";
-  b.textContent = BUGS[Math.floor(Math.random() * BUGS.length)];
-  b.setAttribute("aria-label", "Bug");
-  b.style.setProperty("--life", life + "ms");
-  const p = () => (8 + Math.random() * 84) + "%";
-  b.style.left = p(); b.style.top = p();
-  arena.appendChild(b);
-  if (!reduce) requestAnimationFrame(() => requestAnimationFrame(() => { b.style.left = p(); b.style.top = p(); }));
-  const gone = setTimeout(() => {
-    if (!b.isConnected || b.classList.contains("dead")) return;
-    b.remove();
-    if (running) { miss++; $("miss").textContent = miss; }
+  const elapsed = GAME - left;
+  const life = Math.max(1700, 3200 - elapsed * 55);
+  const ra = Math.random() < .16;
+  const m = document.createElement("button");
+  m.type = "button"; m.className = "mail" + (ra ? " ra" : "");
+  m.textContent = ra ? "📨" : "✉️";
+  m.setAttribute("aria-label", ra ? "Reply all email" : "Email");
+  let hp = ra ? 2 : 1;
+  m.style.setProperty("--life", life + "ms");
+  const side = Math.random();
+  if (side < .5){ m.style.left = (5 + Math.random()*90) + "%"; m.style.top = "-6%"; }
+  else if (side < .75){ m.style.left = "-6%"; m.style.top = (5 + Math.random()*45) + "%"; }
+  else { m.style.left = "106%"; m.style.top = (5 + Math.random()*45) + "%"; }
+  arena.appendChild(m);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    m.style.left = (44 + Math.random()*12) + "%";
+    m.style.top = (66 + Math.random()*8) + "%";
+  }));
+  const land = setTimeout(()=>{
+    if (!m.isConnected) return;
+    const r = m.getBoundingClientRect(), a = arena.getBoundingClientRect();
+    m.remove();
+    if (!running) return;
+    pop(((r.left + r.width/2 - a.left)/a.width*100)+"%", ((r.top - a.top)/a.height*100)+"%", "💥");
+    loseLeaves(ra ? 3 : 1);
   }, life);
-  b.addEventListener("pointerdown", squash);
-  b.addEventListener("click", squash);
-  function squash(e){
+  const tap = e => {
     e.preventDefault();
-    if (!running || b.classList.contains("dead")) return;
-    clearTimeout(gone);
-    b.classList.add("dead"); b.textContent = "💥";
-    hit++; $("hit").textContent = hit;
-    setTimeout(() => b.remove(), 180);
-  }
+    if (!running || !m.isConnected) return;
+    hp--;
+    if (hp > 0){ m.classList.add("hurt"); return; }
+    clearTimeout(land);
+    const r = m.getBoundingClientRect(), a = arena.getBoundingClientRect();
+    m.remove();
+    conv++; $("conv").textContent = conv;
+    pop(((r.left + r.width/2 - a.left)/a.width*100)+"%", ((r.top + r.height/2 - a.top)/a.height*100)+"%", "💬");
+  };
+  m.addEventListener("pointerdown", tap);
+}
+
+function verdict(){
+  if (leaves === TOTAL) return "Not a single leaf lost. The tree would like to add you on Teams.";
+  if (leaves >= 8) return "The tree survived. It's a little bald, but it's coping.";
+  if (leaves >= 4) return "The tree needs therapy. It's been CC'd on everything.";
+  if (leaves >= 1) return "One branch left, holding on purely out of spite.";
+  return "The tree has left the chat. Someone pressed Reply All.";
 }
 
 function start(){
-  hit = 0; miss = 0; left = 20; running = true;
-  $("hit").textContent = 0; $("miss").textContent = 0; $("time").textContent = 20;
+  leaves = TOTAL; conv = 0; left = GAME; running = true;
+  $("leaves").textContent = TOTAL; $("conv").textContent = 0; $("time").textContent = GAME;
   $("saveNote").textContent = "";
+  resetTree();
   msg.hidden = true;
   spawn();
-  spawnT = setInterval(spawn, 480);
-  tickT = setInterval(() => {
-    left--; $("time").textContent = left;
-    if (left <= 0) end();
-  }, 1000);
+  spawnT = setInterval(()=>{ spawn(); if (left < 18 && Math.random() < .35) spawn(); }, 750);
+  tickT = setInterval(()=>{ left--; $("time").textContent = left; if (left <= 0) end(); }, 1000);
 }
 
 function end(){
+  if (!running) return;
   running = false;
   clearInterval(spawnT); clearInterval(tickT);
-  arena.querySelectorAll(".bug").forEach(b => b.remove());
-  $("msgText").innerHTML = "";
-  const v = document.createElement("span"); v.className = "verdict"; v.textContent = verdict(hit);
-  const d = document.createElement("span");
-  d.textContent = " You squashed " + hit + " and let " + miss + " into production.";
-  $("msgText").append(v, document.createElement("br"), d);
-  $("start").textContent = "Squash again";
-  if (TEAMS_EMAIL) {
-    const text = "I clicked your link 👋 Squashed " + hit + " bugs, shipped " + miss + " to production.";
-    $("ping").href = "https://teams.microsoft.com/l/chat/0/0?users=" + encodeURIComponent(TEAMS_EMAIL) + "&message=" + encodeURIComponent(text);
-    $("ping").hidden = false;
-  }
+  arena.querySelectorAll(".mail").forEach(m=>m.remove());
+  const t = $("msgText"); t.textContent = "";
+  const v = document.createElement("p"); v.className = "big verdict"; v.textContent = verdict();
+  const d = document.createElement("p");
+  d.textContent = "You rescued " + conv + " email" + (conv === 1 ? "" : "s") + " and kept " + leaves + " of " + TOTAL + " leaves. Next time, just message me on Teams.";
+  t.append(v, d);
+  $("start").textContent = "Try again";
   msg.hidden = false;
   $("start").focus();
-  save(hit);
+  save();
 }
 
 $("start").addEventListener("click", start);
 
-async function save(score){
-  let best = score;
-  try { best = Math.max(score, Number(localStorage.getItem("best") || 0)); localStorage.setItem("best", best); } catch (e) {}
-  if (!db || !me || !me.id) { $("saveNote").textContent = "Your best so far: " + best + "."; return; }
+function better(a, b){ // is run a better than run b?
+  if (!b) return true;
+  const bl = Number(b.leaves) || 0, bc = Number(b.conv) || 0;
+  return a.leaves > bl || (a.leaves === bl && a.conv > bc);
+}
+
+async function save(){
+  const run = { leaves, conv };
+  if (!db || !me || !me.id) return;
   if (saving) return;
   saving = true;
   const prev = myDoc || {};
-  const body = { best: Math.max(score, Number(prev.best) || 0), plays: (Number(prev.plays) || 0) + 1, last: score, at: Date.now() };
+  const keep = better(run, prev.best ? prev.best : null) ? run : prev.best;
   try {
-    await db.doc("scores/" + me.id).set(body);
-    $("saveNote").textContent = "Saved. You're on the scoreboard.";
+    await db.doc("trees/" + me.id).set({ best: keep, plays: (Number(prev.plays)||0) + 1, at: Date.now() });
+    $("saveNote").textContent = "Saved. You're on the tree huggers list.";
   } catch (e) {
-    $("saveNote").textContent = "Your score couldn't be saved, so it stays between us.";
+    $("saveNote").textContent = "Your score couldn't be saved, so it stays between you and the tree.";
   }
   saving = false;
 }
@@ -206,7 +302,10 @@ function ago(t){
 }
 
 async function renderBoard(snap){
-  const rows = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.best || 0) - (a.best || 0)).slice(0, 30);
+  const rows = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    .filter(r => r.best)
+    .sort((a,b) => (b.best.leaves - a.best.leaves) || (b.best.conv - a.best.conv))
+    .slice(0, 30);
   const mine = rows.find(r => me && r.id === me.id);
   if (mine) myDoc = mine;
   const ps = user ? await user.profiles(rows.map(r => r.id)) : {};
@@ -219,18 +318,22 @@ async function renderBoard(snap){
     who.textContent = (p.name || "Someone") + (p.isMe ? " (you)" : "");
     const when = document.createElement("span"); when.className = "when";
     when.textContent = (r.plays > 1 ? r.plays + " tries, " : "") + (r.at ? ago(r.at) : "");
-    const pts = document.createElement("span"); pts.className = "pts"; pts.textContent = r.best || 0;
+    const pts = document.createElement("span"); pts.className = "pts";
+    pts.textContent = "🍃 " + r.best.leaves + "  💬 " + r.best.conv;
     li.append(who, when, pts); list.appendChild(li);
   }
-  $("boardNote").textContent = rows.length ? "" : "Nobody has clicked yet. You get to be first.";
+  $("boardNote").textContent = rows.length ? "" : "Nobody has saved the tree yet. Be the hero it deserves.";
 }
 
 (async function init(){
+  setMood();
   if (!window.claude || !window.claude.use) { $("boardSec").hidden = true; return; }
-  [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
-  if (user) me = await user.me();
+  try {
+    [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
+    if (user) me = await user.me();
+  } catch (e) { db = null; }
   if (!db) { $("boardSec").hidden = true; return; }
-  db.collection("scores").onSnapshot(renderBoard, () => { $("boardNote").textContent = "The scoreboard couldn't load. Reload to try again."; });
+  db.collection("trees").onSnapshot(renderBoard, () => { $("boardNote").textContent = "The scoreboard couldn't load. Reload to try again."; });
 })();
 </script>
 </body>
